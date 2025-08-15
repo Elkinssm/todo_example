@@ -1,0 +1,22 @@
+{
+  "name": "todo-miniprogram",
+  "version": "1.0.0",
+  "description": "Miniprograma de tareas con arquitectura MVVM",
+  "main": "app.js",
+  "scripts": {
+    "test": "jest",
+    "test:watch": "jest --watch",
+    "test:coverage": "jest --coverage"
+  },
+  "keywords": [
+    "miniprogram",
+    "alipay",
+    "mvvm",
+    "todo"
+  ],
+  "author": "Tu Nombre",
+  "license": "MIT",
+  "devDependencies": {
+    "jest": "^29.7.0"
+  }
+}

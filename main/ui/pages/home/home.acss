@@ -1,0 +1,360 @@
+page {
+  background-color: #f5f5f5;
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+}
+
+.container {
+  padding: 20rpx;
+}
+
+.header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 30rpx;
+  padding: 20rpx;
+  background: white;
+  border-radius: 16rpx;
+  box-shadow: 0 2rpx 8rpx rgba(0, 0, 0, 0.1);
+}
+
+.title {
+  font-size: 36rpx;
+  font-weight: bold;
+  color: #333;
+}
+
+.add-btn {
+  background: #108ee9;
+  color: white;
+  border: none;
+  padding: 16rpx 24rpx;
+  border-radius: 8rpx;
+  font-size: 28rpx;
+  font-weight: 500;
+}
+
+.stats {
+  display: flex;
+  gap: 20rpx;
+  margin-bottom: 30rpx;
+}
+
+.stat-item {
+  flex: 1;
+  background: white;
+  padding: 24rpx;
+  border-radius: 16rpx;
+  text-align: center;
+  box-shadow: 0 2rpx 8rpx rgba(0, 0, 0, 0.1);
+}
+
+.stat-number {
+  display: block;
+  font-size: 32rpx;
+  font-weight: bold;
+  color: #108ee9;
+  margin-bottom: 8rpx;
+}
+
+.stat-label {
+  font-size: 24rpx;
+  color: #666;
+}
+
+.filters {
+  display: flex;
+  gap: 16rpx;
+  margin-bottom: 30rpx;
+}
+
+.filter-btn {
+  flex: 1;
+  padding: 16rpx;
+  border: 2rpx solid #e0e0e0;
+  background: white;
+  border-radius: 8rpx;
+  font-size: 28rpx;
+  color: #666;
+  transition: all 0.2s;
+}
+
+.filter-btn.active {
+  background: #108ee9;
+  color: white;
+  border-color: #108ee9;
+}
+
+.search-container {
+  margin-bottom: 30rpx;
+}
+
+.search-input {
+  width: 100%;
+  padding: 20rpx;
+  border: 2rpx solid #e0e0e0;
+  border-radius: 12rpx;
+  font-size: 28rpx;
+  background: white;
+  box-sizing: border-box;
+  height: auto;
+}
+
+.search-input:focus {
+  border-color: #108ee9;
+  outline: none;
+}
+
+.tasks-list {
+  display: flex;
+  flex-direction: column;
+  gap: 20rpx;
+}
+
+.task-item {
+  background: white;
+  border-radius: 16rpx;
+  padding: 24rpx;
+  box-shadow: 0 2rpx 8rpx rgba(0, 0, 0, 0.1);
+  transition: all 0.2s;
+}
+
+.task-item:hover {
+  transform: translateY(-2rpx);
+  box-shadow: 0 4rpx 16rpx rgba(0, 0, 0, 0.15);
+}
+
+.task-item.late {
+  border-left: 8rpx solid #ff4d4f;
+}
+
+.task-content {
+  flex: 1;
+}
+
+.task-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  margin-bottom: 16rpx;
+}
+
+.task-title {
+  font-size: 32rpx;
+  font-weight: 600;
+  color: #333;
+  flex: 1;
+  margin-right: 16rpx;
+}
+
+.task-status {
+  padding: 8rpx 16rpx;
+  border-radius: 20rpx;
+  font-size: 24rpx;
+  font-weight: 500;
+  white-space: nowrap;
+}
+
+.task-status.on-time {
+  background: #f6ffed;
+  color: #52c41a;
+  border: 1rpx solid #b7eb8f;
+}
+
+.task-status.late {
+  background: #fff2f0;
+  color: #ff4d4f;
+  border: 1rpx solid #ffccc7;
+}
+
+.task-description {
+  font-size: 28rpx;
+  color: #666;
+  line-height: 1.5;
+  margin-bottom: 16rpx;
+}
+
+.task-dates {
+  display: flex;
+  flex-direction: column;
+  gap: 8rpx;
+  margin-bottom: 20rpx;
+}
+
+.task-date,
+.task-eta {
+  font-size: 24rpx;
+  color: #999;
+}
+
+.task-actions {
+  display: flex;
+  gap: 16rpx;
+  justify-content: flex-end;
+}
+
+.action-btn {
+  padding: 12rpx 20rpx;
+  border: none;
+  border-radius: 8rpx;
+  font-size: 24rpx;
+  cursor: pointer;
+  transition: all 0.2s;
+}
+
+.finish-btn {
+  background: #52c41a;
+  color: white;
+}
+
+.finish-btn:hover {
+  background: #389e0d;
+}
+
+.delete-btn {
+  background: #ff4d4f;
+  color: white;
+}
+
+.delete-btn:hover {
+  background: #cf1322;
+}
+
+.loading {
+  text-align: center;
+  padding: 60rpx;
+  color: #666;
+  font-size: 28rpx;
+}
+
+.error {
+  background: #fff2f0;
+  border: 1rpx solid #ffccc7;
+  color: #ff4d4f;
+  padding: 20rpx;
+  border-radius: 8rpx;
+  margin: 20rpx 0;
+  text-align: center;
+}
+
+/* Modal Styles */
+.modal-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: rgba(0, 0, 0, 0.5);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 1000;
+}
+
+.modal-content {
+  background: white;
+  border-radius: 16rpx;
+  padding: 32rpx;
+  width: 80%;
+  max-width: 600rpx;
+  position: relative;
+  z-index: 1001;
+  /* Asegurar que esté por encima del overlay */
+}
+
+.modal-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 30rpx 30rpx 20rpx 30rpx;
+  border-bottom: 1rpx solid #eee;
+}
+
+.modal-title {
+  font-size: 36rpx;
+  font-weight: bold;
+  color: #333;
+}
+
+.close-btn {
+  background: none;
+  border: none;
+  font-size: 32rpx;
+  color: #999;
+  padding: 8rpx;
+}
+
+.modal-body {
+  padding: 30rpx;
+}
+
+.form-group {
+  margin-bottom: 20rpx;
+}
+
+.form-label {
+  display: block;
+  margin-bottom: 10rpx;
+}
+
+.form-input,
+.form-textarea {
+  width: 100%;
+  border: 2rpx solid #e0e0e0;
+  border-radius: 8rpx;
+  padding: 16rpx;
+  font-size: 28rpx;
+  background: white;
+  box-sizing: border-box;
+  height: auto;
+}
+
+.form-input:focus,
+.form-textarea:focus {
+  border-color: #108ee9;
+  outline: none;
+}
+
+.task-input,
+.task-textarea {
+  width: 100%;
+  border: 2rpx solid #ddd;
+  border-radius: 8rpx;
+  padding: 16rpx;
+  margin-bottom: 20rpx;
+  font-size: 28rpx;
+  box-sizing: border-box;
+}
+
+.task-textarea {
+  height: 120rpx;
+  resize: none;
+}
+
+.modal-actions {
+  display: flex;
+  gap: 20rpx;
+  justify-content: center;
+  padding: 20rpx 30rpx 30rpx 30rpx;
+  border-top: 1rpx solid #eee;
+}
+
+.cancel-btn,
+.save-btn {
+  flex: 1;
+  padding: 16rpx;
+  border-radius: 8rpx;
+  font-size: 28rpx;
+}
+
+.cancel-btn {
+  background: #f5f5f5;
+  color: #666;
+  border: 2rpx solid #ddd;
+}
+
+.save-btn {
+  background: #108ee9;
+  color: white;
+  border: none;
+}

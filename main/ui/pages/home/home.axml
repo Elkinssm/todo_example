@@ -1,3 +1,159 @@
-<view>
-  New Page
+<view class="container">
+  <!-- Header -->
+  <view class="header">
+    <text class="title"> Mi Lista de Tareas</text>
+    <button class="add-btn" onTap="showAddTaskModal">+ Nueva Tarea</button>
+  </view>
+
+  <!-- Estadísticas -->
+  <view class="stats">
+    <view class="stat-item">
+      <text class="stat-number">{{stats.total}}</text>
+      <text class="stat-label">Total</text>
+    </view>
+    <view class="stat-item">
+      <text class="stat-number">{{stats.onTime}}</text>
+      <text class="stat-label">A Tiempo</text>
+    </view>
+    <view class="stat-item">
+      <text class="stat-number">{{stats.late}}</text>
+      <text class="stat-label">Atrasadas</text>
+    </view>
+  </view>
+
+  <!-- Filtros -->
+  <view class="filters">
+    <button
+      class="filter-btn {{currentFilter === 'all' ? 'active' : ''}}"
+      data-status="all"
+      onTap="loadTasksByStatus"
+    >
+      Todas
+    </button>
+    <button
+      class="filter-btn {{currentFilter === 'ON_TIME' ? 'active' : ''}}"
+      data-status="ON_TIME"
+      onTap="loadTasksByStatus"
+    >
+      A Tiempo
+    </button>
+    <button
+      class="filter-btn {{currentFilter === 'LATE' ? 'active' : ''}}"
+      data-status="LATE"
+      onTap="loadTasksByStatus"
+    >
+      Atrasadas
+    </button>
+  </view>
+
+  <!-- Búsqueda -->
+  <view class="search-container">
+    <input
+      class="search-input"
+      placeholder="Buscar tareas..."
+      value="{{searchText}}"
+      onInput="onSearchInput"
+    />
+  </view>
+
+  <!-- Lista de Tareas -->
+  <view a:if="{{!loading}}" class="tasks-list">
+    <view
+      a:for="{{filteredTasks}}"
+      class="task-item {{item.taskStatus === 'LATE' ? 'late' : ''}}"
+      a:key="id"
+    >
+      <view class="task-content">
+        <view class="task-header">
+          <text class="task-title">{{item.title}}</text>
+          <view class="task-status {{item.taskStatus === 'LATE' ? 'late' : 'on-time'}}">
+            {{item.taskStatus === 'LATE' ? 'Atrasada' : 'A Tiempo'}}
+          </view>
+        </view>
+        <text class="task-description">{{item.description}}</text>
+        <view class="task-dates">
+          <text class="task-date">Creada: {{item.createdDate}}</text>
+          <text class="task-eta">ETA: {{item.eta}}</text>
+        </view>
+      </view>
+      <view class="task-actions">
+        <button
+          a:if="{{!item.finished}}"
+          class="action-btn finish-btn"
+          data-id="{{item.id}}"
+          onTap="markTaskAsFinished"
+        >
+          ✅
+        </button>
+        <button class="action-btn delete-btn" data-id="{{item.id}}" onTap="deleteTask">
+          🗑️
+        </button>
+      </view>
+    </view>
+  </view>
+
+  <!-- Loading -->
+  <view a:if="{{loading}}" class="loading">
+    <text>Cargando...</text>
+  </view>
+
+  <!-- Error -->
+  <view a:if="{{error}}" class="error">
+    <text>{{error}}</text>
+  </view>
+
+  <!-- Modal para nueva tarea -->
+  <view a:if="{{showModal}}" class="modal-overlay">
+    <view class="modal-content">
+      <view class="modal-header">
+        <text class="modal-title">Nueva Tarea</text>
+        <button class="close-btn" onTap="hideModal">×</button>
+      </view>
+
+      <view class="modal-body">
+        <view class="form-group">
+          <text class="form-label">Título *</text>
+          <input
+            class="form-input"
+            placeholder="Título de la tarea"
+            value="{{newTaskTitle}}"
+            onInput="onTitleInput"
+            onFocus="onInputFocus"
+            onBlur="onInputBlur"
+          />
+        </view>
+
+        <view class="form-group">
+          <text class="form-label">Descripción *</text>
+          <textarea
+            class="form-textarea"
+            placeholder="Descripción de la tarea"
+            value="{{newTaskDescription}}"
+            onInput="onDescriptionInput"
+            onFocus="onInputFocus"
+            onBlur="onInputBlur"
+          />
+        </view>
+
+        <view class="form-group">
+          <text class="form-label">Fecha Límite (ETA) *</text>
+          <input
+            class="form-input"
+            type="date"
+            value="{{newTaskEta}}"
+            onInput="onEtaInput"
+            onFocus="onInputFocus"
+            onBlur="onInputBlur"
+          />
+        </view>
+      </view>
+
+      <view class="modal-footer">
+        <button class="btn btn-secondary" onTap="hideModal">Cancelar</button>
+        <button class="btn btn-primary" onTap="createTask" disabled="{{loading}}">
+          {{loading ? 'Creando...' : 'Crear Tarea'}}
+        </button>
+      </view>
+    </view>
+  </view>
 </view>
