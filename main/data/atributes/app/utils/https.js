@@ -10,7 +10,7 @@ module.exports.sendRequestAsync = (requestConfig) => {
           reject(res);
         },
         complete: (res) => {
-          console.log("📊 Petición HTTP completada:", {
+          console.log(" Petición HTTP completada:", {
             url: requestConfig.url,
             method: requestConfig.method,
             duration: `${new Date() - startTime}ms`,

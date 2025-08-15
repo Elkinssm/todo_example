@@ -11,17 +11,17 @@ const taskRepository = new TaskRepository()
  */
 async function fetchTasks() {
   try {
-    console.log('🔄 TaskViewModel.fetchTasks() llamado')
+    console.log('TaskViewModel.fetchTasks() llamado')
     const { data } = await taskRepository.getTasks()
     
     if (!data || !Array.isArray(data) || data.length === 0) {
       throw new Error('No se recibieron tareas válidas')
     }
     
-    console.log('✅ Tareas obtenidas exitosamente:', data)
+    console.log(' Tareas obtenidas exitosamente:', data)
     return data
   } catch (error) {
-    console.error('❌ Error en fetchTasks:', error)
+    console.error(' Error en fetchTasks:', error)
     throw new Error('Error al obtener las tareas')
   }
 }
@@ -59,7 +59,7 @@ async function createTask(taskData) {
       eta: taskData.eta || new Date(Date.now() + 24 * 60 * 60 * 1000).toISOString() // ETA por defecto en 24 horas
     }
 
-    console.log('📝 Datos a enviar a la API:', taskToCreate)
+    console.log(' Datos a enviar a la API:', taskToCreate)
 
     const { data } = await taskRepository.createTask(taskToCreate)
     

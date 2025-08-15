@@ -1,12 +1,4 @@
-// Agregar debugging para el require
-console.log(" Intentando require de TaskRepository...");
 const TaskRepository = require("../../../data/atributes/app/repository/TaskRepository");
-console.log("📦 TaskRepository importado:", TaskRepository);
-console.log("🔍 Tipo de TaskRepository:", typeof TaskRepository);
-console.log(
-  "️ Es constructor?",
-  TaskRepository && typeof TaskRepository === "function"
-);
 
 Page({
   data: {
@@ -26,18 +18,18 @@ Page({
   onLoad() {
     console.log(" === PÁGINA CARGADA ===");
     try {
-      console.log("🔄 Intentando crear TaskRepository...");
-      console.log("📦 TaskRepository disponible:", TaskRepository);
+      console.log("Intentando crear TaskRepository...");
+      console.log("TaskRepository disponible:", TaskRepository);
 
       if (!TaskRepository || typeof TaskRepository !== "function") {
         throw new Error("TaskRepository no es un constructor válido");
       }
 
       this.taskRepository = new TaskRepository();
-      console.log("✅ TaskRepository creado exitosamente");
+      console.log(" TaskRepository creado exitosamente");
       this.loadTasks();
     } catch (error) {
-      console.error("❌ Error al crear TaskRepository:", error);
+      console.error(" Error al crear TaskRepository:", error);
       this.setData({
         error: "Error al inicializar la aplicación: " + error.message,
       });
@@ -46,11 +38,11 @@ Page({
 
   async loadTasks() {
     try {
-      console.log("📱 loadTasks() llamado desde home.js");
+      console.log("loadTasks() llamado desde home.js");
       this.setData({ loading: true, error: null });
 
       const result = await this.taskRepository.getTasks();
-      console.log("✅ Tareas cargadas en home.js:", result);
+      console.log("Tareas cargadas en home.js:", result);
 
       const tasks = result.data || [];
       this.setData({
@@ -62,7 +54,7 @@ Page({
       this.updateStats();
       this.filterTasks();
     } catch (error) {
-      console.error("❌ Error en loadTasks de home.js:", error);
+      console.error("Error en loadTasks de home.js:", error);
       this.setData({
         error: error.message,
         loading: false,
@@ -72,8 +64,8 @@ Page({
 
   async createTask() {
     try {
-      console.log("🔄 createTask() llamado desde home.js");
-      console.log("📊 Estado actual del formulario:", {
+      console.log("createTask() llamado desde home.js");
+      console.log(" Estado actual del formulario:", {
         title: this.data.newTaskTitle,
         description: this.data.newTaskDescription,
         eta: this.data.newTaskEta,
@@ -81,7 +73,7 @@ Page({
 
       // Validación más detallada
       if (!this.data.newTaskTitle || !this.data.newTaskTitle.trim()) {
-        console.log("❌ Título vacío o undefined");
+        console.log("Título vacío o undefined");
         this.setData({ error: "El título es requerido" });
         return;
       }
@@ -90,18 +82,18 @@ Page({
         !this.data.newTaskDescription ||
         !this.data.newTaskDescription.trim()
       ) {
-        console.log("❌ Descripción vacía o undefined");
+        console.log(" Descripción vacía o undefined");
         this.setData({ error: "La descripción es requerida" });
         return;
       }
 
       if (!this.data.newTaskEta) {
-        console.log("❌ ETA vacía o undefined");
+        console.log("ETA vacía o undefined");
         this.setData({ error: "La fecha límite es requerida" });
         return;
       }
 
-      console.log("✅ Validación pasada, procediendo a crear tarea");
+      console.log("Validación pasada, procediendo a crear tarea");
 
       this.setData({ loading: true, error: null });
 
@@ -109,7 +101,7 @@ Page({
       const etaDate = new Date(this.data.newTaskEta);
       const etaISO = etaDate.toISOString();
 
-      console.log("📅 Fecha original:", this.data.newTaskEta);
+      console.log("Fecha original:", this.data.newTaskEta);
       console.log(" Fecha convertida a ISO:", etaISO);
 
       const taskData = {
@@ -118,11 +110,11 @@ Page({
         eta: etaISO,
       };
 
-      console.log("📤 Datos de tarea a crear:", taskData);
-      console.log("🔄 Llamando a taskRepository.createTask...");
+      console.log(" Datos de tarea a crear:", taskData);
+      console.log(" Llamando a taskRepository.createTask...");
 
       const result = await this.taskRepository.createTask(taskData);
-      console.log("✅ Nueva tarea creada:", result);
+      console.log(" Nueva tarea creada:", result);
 
       // Limpiar formulario
       this.setData({
@@ -133,12 +125,12 @@ Page({
         loading: false,
       });
 
-      console.log("🔄 Recargando tareas...");
+      console.log("Recargando tareas...");
       // Recargar tareas
       await this.loadTasks();
-      console.log("✅ Tareas recargadas exitosamente");
+      console.log("Tareas recargadas exitosamente");
     } catch (error) {
-      console.error("❌ Error en createTask:", error);
+      console.error("Error en createTask:", error);
       this.setData({
         error: error.message,
         loading: false,
@@ -149,10 +141,10 @@ Page({
   async deleteTask(e) {
     try {
       const taskId = e.currentTarget.dataset.id;
-      console.log("🗑️ deleteTask() llamado con ID:", taskId);
+      console.log("deleteTask() llamado con ID:", taskId);
 
       if (!taskId) {
-        console.error("❌ No se pudo obtener el ID de la tarea");
+        console.error("No se pudo obtener el ID de la tarea");
         return;
       }
 
@@ -163,7 +155,7 @@ Page({
       // Recargar tareas
       await this.loadTasks();
     } catch (error) {
-      console.error("❌ Error en deleteTask:", error);
+      console.error("Error en deleteTask:", error);
       this.setData({
         error: error.message,
         loading: false,
@@ -174,10 +166,10 @@ Page({
   async markTaskAsFinished(e) {
     try {
       const taskId = e.currentTarget.dataset.id;
-      console.log("✅ markTaskAsFinished() llamado con ID:", taskId);
+      console.log("markTaskAsFinished() llamado con ID:", taskId);
 
       if (!taskId) {
-        console.error("❌ No se pudo obtener el ID de la tarea");
+        console.error("No se pudo obtener el ID de la tarea");
         return;
       }
 
@@ -188,7 +180,7 @@ Page({
       // Recargar tareas
       await this.loadTasks();
     } catch (error) {
-      console.error("❌ Error en markTaskAsFinished:", error);
+      console.error("Error en markTaskAsFinished:", error);
       this.setData({
         error: error.message,
         loading: false,
@@ -202,7 +194,7 @@ Page({
       console.log("🔄 loadTasksByStatus() llamado con status:", status);
 
       if (!status) {
-        console.error("❌ No se pudo obtener el status");
+        console.error("No se pudo obtener el status");
         return;
       }
 
@@ -223,7 +215,7 @@ Page({
 
       this.updateStats();
     } catch (error) {
-      console.error("❌ Error en loadTasksByStatus:", error);
+      console.error("Error en loadTasksByStatus:", error);
       this.setData({
         error: error.message,
         loading: false,
@@ -271,7 +263,7 @@ Page({
   },
 
   showAddTaskModal() {
-    console.log(" showAddTaskModal() llamado");
+    console.log("showAddTaskModal() llamado");
     this.setData({
       showModal: true,
       error: null,
@@ -282,7 +274,7 @@ Page({
   },
 
   hideModal() {
-    console.log("🔄 hideModal() llamado");
+    console.log("hideModal() llamado");
     this.setData({
       showModal: false,
       error: null,
@@ -293,12 +285,12 @@ Page({
   },
 
   onOverlayTap() {
-    console.log("🎯 onOverlayTap() llamado - Cerrar modal");
+    console.log(" onOverlayTap() llamado - Cerrar modal");
     this.hideModal();
   },
 
   onModalContentTap(e) {
-    console.log("🎯 onModalContentTap() llamado - Prevenir cierre");
+    console.log(" onModalContentTap() llamado - Prevenir cierre");
     // Prevenir que el evento se propague al overlay
     if (e && e.stopPropagation) {
       e.stopPropagation();
@@ -307,7 +299,7 @@ Page({
   },
 
   onInputTap(e) {
-    console.log("🎯 onInputTap() llamado - Prevenir cierre del modal");
+    console.log(" onInputTap() llamado - Prevenir cierre del modal");
     // Prevenir que el evento se propague al modal content
     if (e && e.stopPropagation) {
       e.stopPropagation();
@@ -316,7 +308,7 @@ Page({
   },
 
   onTitleInput(e) {
-    console.log("📝 onTitleInput() llamado con:", e.detail.value);
+    console.log(" onTitleInput() llamado con:", e.detail.value);
     this.setData({ newTaskTitle: e.detail.value });
   },
 
@@ -326,12 +318,12 @@ Page({
   },
 
   onEtaInput(e) {
-    console.log("📝 onEtaInput() llamado con:", e.detail.value);
+    console.log(" onEtaInput() llamado con:", e.detail.value);
     this.setData({ newTaskEta: e.detail.value });
   },
 
   onInputBlur(e) {
-    console.log("👁️ onInputBlur() llamado");
+    console.log("onInputBlur() llamado");
     // Prevenir que el modal se cierre cuando se pierde el foco
     if (e && e.preventDefault) {
       e.preventDefault();
@@ -342,53 +334,13 @@ Page({
   },
 
   onInputFocus(e) {
-    console.log("🎯 onInputFocus() llamado");
+    console.log("onInputFocus() llamado");
     // Prevenir que el modal se cierre cuando se enfoca un input
     if (e && e.preventDefault) {
       e.preventDefault();
     }
     if (e && e.stopPropagation) {
       e.stopPropagation();
-    }
-  },
-
-  // Método de prueba para verificar el repository
-  async testRepository() {
-    try {
-      console.log("🧪 testRepository() llamado");
-      console.log("📦 taskRepository disponible:", this.taskRepository);
-
-      if (!this.taskRepository) {
-        console.error("❌ taskRepository no está disponible");
-        return;
-      }
-
-      console.log("🔄 Probando getTasks...");
-      const result = await this.taskRepository.getTasks();
-      console.log("✅ getTasks funcionó:", result);
-    } catch (error) {
-      console.error("❌ Error en testRepository:", error);
-    }
-  },
-
-  // Método para probar la creación sin validaciones
-  async testCreateTask() {
-    try {
-      console.log("🧪 testCreateTask() llamado");
-
-      const testData = {
-        title: "Tarea de prueba",
-        description: "Descripción de prueba",
-        eta: "2025-08-16T00:00:00.000Z",
-      };
-
-      console.log(" Datos de prueba:", testData);
-      console.log("🔄 Llamando a createTask...");
-
-      const result = await this.taskRepository.createTask(testData);
-      console.log("✅ Tarea de prueba creada:", result);
-    } catch (error) {
-      console.error("❌ Error en testCreateTask:", error);
     }
   },
 });

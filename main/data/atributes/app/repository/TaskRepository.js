@@ -4,7 +4,7 @@
  */
 class TaskRepository {
   constructor() {
-    console.log("🏗️ TaskRepository constructor iniciado");
+    console.log(" TaskRepository constructor iniciado");
     this.baseUrl = "http://localhost:8080";
   }
 
@@ -13,17 +13,17 @@ class TaskRepository {
    */
   async getTasks() {
     try {
-      console.log("�� TaskRepository.getTasks() llamado");
+      console.log("TaskRepository.getTasks() llamado");
 
       const result = await this.makeRequest({
         url: `${this.baseUrl}/tasks`,
         method: "GET",
       });
 
-      console.log("✅ Tareas obtenidas exitosamente:", result);
+      console.log(" Tareas obtenidas exitosamente:", result);
       return { data: result.data || [] };
     } catch (error) {
-      console.error("❌ Error en TaskRepository.getTasks():", error);
+      console.error(" Error en TaskRepository.getTasks():", error);
       throw new Error("Error al obtener las tareas");
     }
   }
@@ -41,10 +41,10 @@ class TaskRepository {
         data: taskData,
       });
 
-      console.log("✅ Tarea creada exitosamente:", result);
+      console.log(" Tarea creada exitosamente:", result);
       return { data: result.data };
     } catch (error) {
-      console.error("❌ Error en TaskRepository.createTask():", error);
+      console.error(" Error en TaskRepository.createTask():", error);
       throw new Error("Error al crear la tarea");
     }
   }
@@ -54,17 +54,17 @@ class TaskRepository {
    */
   async deleteTask(taskId) {
     try {
-      console.log("🔄 TaskRepository.deleteTask() llamado con ID:", taskId);
+      console.log(" TaskRepository.deleteTask() llamado con ID:", taskId);
 
       const result = await this.makeRequest({
         url: `${this.baseUrl}/tasks/delete/${taskId}`,
         method: "DELETE",
       });
 
-      console.log("✅ Tarea eliminada exitosamente:", result);
+      console.log(" Tarea eliminada exitosamente:", result);
       return { data: result.data };
     } catch (error) {
-      console.error("❌ Error en TaskRepository.deleteTask():", error);
+      console.error(" Error en TaskRepository.deleteTask():", error);
       throw new Error("Error al eliminar la tarea");
     }
   }
@@ -87,7 +87,7 @@ class TaskRepository {
       console.log("✅ Tarea marcada como finalizada:", result);
       return { data: result.data };
     } catch (error) {
-      console.error("❌ Error en TaskRepository.markTaskAsFinished():", error);
+      console.error(" Error en TaskRepository.markTaskAsFinished():", error);
       throw new Error("Error al marcar la tarea como finalizada");
     }
   }
@@ -107,10 +107,10 @@ class TaskRepository {
         method: "GET",
       });
 
-      console.log("✅ Tareas por status obtenidas exitosamente:", result);
+      console.log(" Tareas por status obtenidas exitosamente:", result);
       return { data: result.data || [] };
     } catch (error) {
-      console.error("❌ Error en TaskRepository.getTasksByStatus():", error);
+      console.error(" Error en TaskRepository.getTasksByStatus():", error);
       throw new Error(`Error al obtener tareas con estado ${status}`);
     }
   }
@@ -127,10 +127,10 @@ class TaskRepository {
         method: "GET",
       });
 
-      console.log("✅ Tarea por ID obtenida exitosamente:", result);
+      console.log(" Tarea por ID obtenida exitosamente:", result);
       return { data: result.data };
     } catch (error) {
-      console.error("❌ Error en TaskRepository.getTaskById():", error);
+      console.error(" Error en TaskRepository.getTaskById():", error);
       throw new Error("Error al obtener la tarea");
     }
   }
@@ -142,7 +142,7 @@ class TaskRepository {
     return new Promise((resolve, reject) => {
       const startTime = new Date();
 
-      console.log("🌐 Haciendo petición HTTP:", {
+      console.log(" Haciendo petición HTTP:", {
         url: requestConfig.url,
         method: requestConfig.method,
         data: requestConfig.data,
@@ -154,7 +154,7 @@ class TaskRepository {
         data: requestConfig.data || {},
         headers: requestConfig.headers || {},
         success: (res) => {
-          console.log("✅ Petición HTTP exitosa:", {
+          console.log(" Petición HTTP exitosa:", {
             url: requestConfig.url,
             method: requestConfig.method,
             status: res.statusCode,
@@ -163,7 +163,7 @@ class TaskRepository {
           resolve(res);
         },
         fail: (res) => {
-          console.error("❌ Petición HTTP falló:", {
+          console.error("Petición HTTP falló:", {
             url: requestConfig.url,
             method: requestConfig.method,
             error: res.error,
@@ -172,7 +172,7 @@ class TaskRepository {
           reject(res);
         },
         complete: (res) => {
-          console.log("📊 Petición HTTP completada:", {
+          console.log(" Petición HTTP completada:", {
             url: requestConfig.url,
             method: requestConfig.method,
             status: res.statusCode || "N/A",

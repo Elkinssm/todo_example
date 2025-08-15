@@ -29,7 +29,7 @@ class TaskDataSourceRemote {
    * @throws {Error} Si hay un error en la petición HTTP
    */
   getTasks() {
-    console.log("🔗 TaskDataSourceRemote.getTasks() llamado");
+    console.log("TaskDataSourceRemote.getTasks() llamado");
     return taskRemote.getTasks({ api: APIs.URL_TASKS_API.base });
   }
 

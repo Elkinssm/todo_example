@@ -23,27 +23,6 @@ class TaskModel {
     );
   }
 
-  /**
-   * Marca la tarea como terminada
-   */
-  markAsFinished() {
-    this.status = "finished";
-    return this;
-  }
-
-  /**
-   * Verifica si la tarea está terminada
-   */
-  isFinished() {
-    return this.status === "finished";
-  }
-
-  /**
-   * Verifica si la tarea está pendiente
-   */
-  isPending() {
-    return this.status === "pending";
-  }
 }
 
 module.exports = TaskModel;
