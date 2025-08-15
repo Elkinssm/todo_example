@@ -1,0 +1,7 @@
+{
+  "pages": ["main/ui/pages/home/home"],
+  "window": {
+    "defaultTitle": "Todo App",
+    "titleBarColor": "#108ee9"
+  }
+}
